@@ -247,10 +247,13 @@
 
   <section id="portalScreen" class="screen hidden">
     <div class="topbar">
-      <div>
-        <div class="eyebrow">Internal Security Bureau</div>
-        <div class="title">Classified Operations Portal</div>
-        <p class="muted">Eyes only. Session bound to registered device fingerprint.</p>
+      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+        <div style="width:58px;height:58px;border-radius:16px;background:linear-gradient(180deg,#1b2431,#0a1017);border:1px solid #2a3a4d;display:flex;align-items:center;justify-content:center;color:#ff6b6b;font-weight:900;letter-spacing:0.08em;">ISB</div>
+        <div>
+          <div class="eyebrow">Internal Security Bureau</div>
+          <div class="title">Classified Operations Portal</div>
+          <p class="muted">Eyes only. Session bound to registered device fingerprint.</p>
+        </div>
       </div>
       <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
         <div class="status-pill">Encrypted Session Active</div>
@@ -258,11 +261,35 @@
       </div>
     </div>
 
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:18px;">
+      <div class="card"><h3>Command Seal</h3><div style="display:flex;align-items:center;gap:10px;"><div style="width:44px;height:44px;border-radius:999px;border:1px solid #314355;display:flex;align-items:center;justify-content:center;color:#ff8a8a;">⬢</div><div><div style="font-weight:800;">Northern Desk</div><div class="muted" style="font-size:13px;">Verified node</div></div></div></div>
+      <div class="card"><h3>Device Status</h3><div class="big" style="font-size:22px;">Bound</div><div class="muted">Anonymous007-A terminal</div></div>
+      <div class="card"><h3>Signal Integrity</h3><div class="big" style="font-size:22px;color:#8ef0be;">96%</div><div class="muted">Relay stable</div></div>
+      <div class="card"><h3>Threat Meter</h3><div style="margin-top:6px;height:10px;background:#121a24;border-radius:999px;overflow:hidden;border:1px solid #253445;"><div style="width:74%;height:100%;background:linear-gradient(90deg,#ffb347,#ff5a5a);"></div></div><div class="muted" style="margin-top:8px;">High vigilance</div></div>
+    </div>
+
     <div class="stats">
       <div class="card"><h3>Agent Status</h3><div class="big">Active</div></div>
       <div class="card"><h3>Live Missions</h3><div class="big">03</div></div>
       <div class="card"><h3>Cover Identities</h3><div class="big">10</div></div>
       <div class="card"><h3>Threat Index</h3><div class="big" style="color:#ff8a8a;">Elevated</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.4fr 0.6fr;gap:18px;margin-bottom:18px;">
+      <div class="panel">
+        <div class="section-title">Live Situation Feed</div>
+        <div class="alert">Sector relay ping received from OP-SILENT-DUNE at 01:18 IST</div>
+        <div class="alert">Dormant identity trail awakened under cover ID-04</div>
+        <div class="alert">Border sector surveillance drone sync successful</div>
+      </div>
+      <div class="panel">
+        <div class="section-title">Clearance Badge</div>
+        <div style="padding:16px;border-radius:16px;background:linear-gradient(180deg,#101826,#0a1018);border:1px solid #27384a;">
+          <div class="eyebrow" style="margin-bottom:6px;">Current Session</div>
+          <div style="font-size:28px;font-weight:900;color:#ff8a8a;">LEVEL 4</div>
+          <div class="muted">Restricted operational access</div>
+        </div>
+      </div>
     </div>
 
     <div class="tabs">
@@ -289,27 +316,31 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="code">ISB-9X-117</td>
-                <td>Ankush Yadav</td>
-                <td>Field Operative</td>
-                <td>Active</td>
-                <td>Level 4</td>
-              </tr>
-              <tr>
-                <td class="code">ISB-4K-203</td>
-                <td>R. Mehra</td>
-                <td>Surveillance Lead</td>
-                <td>Deployed</td>
-                <td>Level 3</td>
-              </tr>
-              <tr>
-                <td class="code">ISB-7V-908</td>
-                <td>A. Khan</td>
-                <td>Signals Analyst</td>
-                <td>Restricted</td>
-                <td>Level 5</td>
-              </tr>
+              <tr><td class="code">ISB-9X-117</td><td>Ankush Yadav</td><td>Field Operative</td><td>Active</td><td>Level 4</td></tr>
+              <tr><td class="code">ISB-4K-203</td><td>R. Mehra</td><td>Surveillance Lead</td><td>Deployed</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-7V-908</td><td>A. Khan</td><td>Signals Analyst</td><td>Restricted</td><td>Level 5</td></tr>
+
+              <tr><td class="code">ISB-2L-551</td><td>Vishesh Nagar</td><td>Field Scout</td><td>Active</td><td>Level 2</td></tr>
+              <tr><td class="code">ISB-8M-332</td><td>Shweta Gond</td><td>Cyber Analyst</td><td>Monitoring</td><td>Level 4</td></tr>
+              <tr><td class="code">ISB-6P-771</td><td>Ankit Best</td><td>Technical Ops</td><td>Active</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-5D-412</td><td>Abhishek Kumar</td><td>Logistics Intel</td><td>Deployed</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-3Q-619</td><td>Naincy Harold</td><td>Signals Intercept</td><td>Active</td><td>Level 4</td></tr>
+
+              <tr><td class="code">ISB-1A-224</td><td>Rahul Tandon</td><td>Field Operative</td><td>Active</td><td>Level 2</td></tr>
+              <tr><td class="code">ISB-9B-887</td><td>Priya Saxena</td><td>Analyst</td><td>Monitoring</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-4C-305</td><td>Mohit Chauhan</td><td>Recon Specialist</td><td>Deployed</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-7D-118</td><td>Neha Verma</td><td>Cyber Ops</td><td>Active</td><td>Level 4</td></tr>
+              <tr><td class="code">ISB-2E-990</td><td>Arjun Sethi</td><td>Field Support</td><td>Active</td><td>Level 2</td></tr>
+              <tr><td class="code">ISB-8F-441</td><td>Imran Shaikh</td><td>Undercover Asset</td><td>Restricted</td><td>Level 5</td></tr>
+              <tr><td class="code">ISB-6G-772</td><td>Kavya Nair</td><td>Data Analyst</td><td>Monitoring</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-3H-563</td><td>Rohit Bansal</td><td>Ops Coordinator</td><td>Active</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-5J-284</td><td>Sneha Kulkarni</td><td>Intel Processing</td><td>Active</td><td>Level 2</td></tr>
+              <tr><td class="code">ISB-1K-675</td><td>Yash Malhotra</td><td>Field Operative</td><td>Deployed</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-9L-339</td><td>Farhan Ali</td><td>Signals Relay</td><td>Active</td><td>Level 2</td></tr>
+              <tr><td class="code">ISB-4M-128</td><td>Pooja Sharma</td><td>Surveillance</td><td>Monitoring</td><td>Level 3</td></tr>
+              <tr><td class="code">ISB-7N-907</td><td>Dev Patel</td><td>Technical Ops</td><td>Active</td><td>Level 2</td></tr>
+              <tr><td class="code">ISB-2P-661</td><td>Aditi Singh</td><td>Cyber Forensics</td><td>Restricted</td><td>Level 5</td></tr>
+              <tr><td class="code">ISB-8R-452</td><td>Harsh Vardhan</td><td>Recon Specialist</td><td>Active</td><td>Level 3</td></tr>
             </tbody>
           </table>
         </div>
