@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISB Classified Portal</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #05070a;
+      color: #e8eef7;
+    }
+    .hidden { display: none !important; }
+    .screen {
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .terminal-box, .card, .panel, .identity-card, .mission-card, .profile-box {
+      background: rgba(12, 16, 22, 0.95);
+      border: 1px solid rgba(108, 123, 139, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .login-wrap {
+      max-width: 460px;
+      width: 100%;
+      padding: 28px;
+    }
+    .eyebrow {
+      color: #ff5a5a;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    .muted { color: #9ba7b7; }
+    .mono { font-family: Consolas, Monaco, monospace; }
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px solid #293241;
+      background: #081019;
+      color: #dff7e8;
+      outline: none;
+    }
+    button {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .btn-primary {
+      background: #00d084;
+      color: #05130d;
+      width: 100%;
+      margin-top: 14px;
+    }
+    .btn-danger {
+      background: #a61b1b;
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #141c27;
+      color: #d8e4f2;
+      border: 1px solid #293241;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .title { font-size: 34px; font-weight: 800; }
+    .status-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 90, 90, 0.12);
+      color: #ff8a8a;
+      border: 1px solid rgba(255, 90, 90, 0.25);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .card {
+      padding: 18px;
+    }
+    .card h3 {
+      color: #96a3b5;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .big {
+      font-size: 28px;
+      font-weight: 800;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .tab-btn {
+      background: #111922;
+      color: #d7e1ee;
+      border: 1px solid #243140;
+    }
+    .tab-btn.active {
+      background: #182433;
+      border-color: #3a526b;
+      color: #fff;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+    .panel {
+      padding: 18px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid #1d2835;
+      font-size: 14px;
+    }
+    th { color: #92a0b2; font-weight: 700; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .mission-card, .identity-card, .profile-box {
+      padding: 16px;
+    }
+    .code {
+      color: #ff8a8a;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+    }
+    .threat-high { color: #ff7070; font-weight: 800; }
+    .threat-critical { color: #ff4040; font-weight: 800; }
+    .threat-unknown { color: #ffd166; font-weight: 800; }
+    .alert {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(166, 27, 27, 0.12);
+      color: #ffd7d7;
+      border: 1px solid rgba(166, 27, 27, 0.3);
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .photo-placeholder {
+      width: 72px;
+      height: 88px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #1d2a3a, #0b1118);
+      border: 1px solid #2c3b4f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7f90a5;
+      font-size: 12px;
+      text-align: center;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .agent-header {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .denied-box {
+      text-align: center;
+      max-width: 540px;
+      width: 100%;
+      padding: 34px;
+    }
+    .denied-title {
+      font-size: 46px;
+      color: #ff4d4d;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .trace {
+      color: #ffb3b3;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    .device-line {
+      color: #ffd166;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 14px;
+    }
+    @media (max-width: 960px) {
+      .stats, .layout, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <section id="loginScreen" class="screen center">
+    <div class="terminal-box login-wrap">
+      <div class="eyebrow mono">Restricted Access Portal</div>
+      <h1>ISB Secure Terminal</h1>
+      <p class="muted">Enter assigned agent credentials to access officer records, mission archives, cover identities, and threat profiles.</p>
+      <input id="agentId" type="text" placeholder="Agent ID" value="ISB-9X-117" />
+      <input id="agentPassword" type="password" placeholder="Password" value="SD-X9#A117" />
+      <button class="btn-primary" onclick="loginPortal()">Authenticate</button>
+      <p id="loginError" class="muted mono" style="margin-top:12px;color:#ff8a8a;"></p>
+    </div>
+  </section>
+
+  <section id="portalScreen" class="screen hidden">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Internal Security Bureau</div>
+        <div class="title">Classified Operations Portal</div>
+        <p class="muted">Eyes only. Session bound to registered device fingerprint.</p>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <div class="status-pill">Encrypted Session Active</div>
+        <button class="btn-secondary" onclick="logoutPortal()">Logout</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="card"><h3>Agent Status</h3><div class="big">Active</div></div>
+      <div class="card"><h3>Live Missions</h3><div class="big">03</div></div>
+      <div class="card"><h3>Cover Identities</h3><div class="big">10</div></div>
+      <div class="card"><h3>Threat Index</h3><div class="big" style="color:#ff8a8a;">Elevated</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('dashboard', this)">Dashboard</button>
+      <button class="tab-btn" onclick="showTab('agent', this)">Agent Profile</button>
+      <button class="tab-btn" onclick="showTab('missions', this)">Mission Files</button>
+      <button class="tab-btn" onclick="showTab('identities', this)">Cover Identities</button>
+      <button class="tab-btn" onclick="showTab('threats', this)">Threat Profiles</button>
+      <button class="tab-btn" onclick="triggerDenied()">Family Details</button>
+    </div>
+
+    <div id="dashboard" class="tab-section">
+      <div class="layout">
+        <div class="panel">
+          <div class="section-title">Officer Registry</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Officer ID</th>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Status</th>
+                <th>Clearance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="code">ISB-9X-117</td>
+                <td>Ankush Yadav</td>
+                <td>Field Operative</td>
+                <td>Active</td>
+                <td>Level 4</td>
+              </tr>
+              <tr>
+                <td class="code">ISB-4K-203</td>
+                <td>R. Mehra</td>
+                <td>Surveillance Lead</td>
+                <td>Deployed</td>
+                <td>Level 3</td>
+              </tr>
+              <tr>
+                <td class="code">ISB-7V-908</td>
+                <td>A. Khan</td>
+                <td>Signals Analyst</td>
+                <td>Restricted</td>
+                <td>Level 5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <div class="section-title">System Alerts</div>
+          <div class="alert">Unauthorized login attempt blocked at 02:14 IST</div>
+          <div class="alert">Mission file OP-BLACK-ECHO accessed by Level 5 clearance</div>
+          <div class="alert">Device binding verified for ISB-9X-117</div>
+          <div class="alert">Ghost profile activity detected in dormant archive</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="agent" class="tab-section hidden">
+      <div class="panel">
+        <div class="section-title">Agent Master Profile</div>
+        <div class="agent-header">
+          <div class="photo-placeholder">AGENT PHOTO</div>
+          <div>
+            <h2>Ankush Yadav</h2>
+            <p class="muted">Primary active field asset assigned to monitored military-adjacent leak investigation.</p>
+            <p><strong>Agent ID:</strong> <span class="code">ISB-9X-117</span></p>
+            <p><strong>Username:</strong> a.yadav117</p>
+            <p><strong>Password:</strong> SD-X9#A117</p>
+            <p><strong>Backup Code:</strong> ECHO-77-DELTA</p>
+            <p><strong>Status:</strong> Active</p>
+            <p><strong>Role:</strong> Covert Agent / Field Operative</p>
+            <p><strong>Division:</strong> Field Intelligence Unit</p>
+            <p><strong>Clearance:</strong> Level 4 - Restricted</p>
+            <p><strong>Device Binding:</strong> Enabled</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="missions" class="tab-section hidden">
+      <div class="grid-3">
+        <div class="mission-card">
+          <div class="code">OP-SILENT-DUNE</div>
+          <h3>Silent Dune</h3>
+          <p><strong>Priority:</strong> High</p>
+          <p><strong>Status:</strong> Live Monitoring</p>
+          <p><strong>Region:</strong> Border Sector</p>
+          <p class="muted">Track communication leaks passing through trusted civilian and military-adjacent social channels.</p>
+        </div>
+        <div class="mission-card">
+          <div class="code">OP-BLACK-ECHO</div>
+          <h3>Black Echo</h3>
+          <p><strong>Priority:</strong> Critical</p>
+          <p><strong>Status:</strong> Containment</p>
+          <p><strong>Region:</strong> Northern Grid</p>
+          <p class="muted">Intercept encrypted relay patterns tied to internal compromise and indirect courier movement.</p>
+        </div>
+        <div class="mission-card">
+          <div class="code">OP-GHOST-LINE</div>
+          <h3>Ghost Line</h3>
+          <p><strong>Priority:</strong> Medium</p>
+          <p><strong>Status:</strong> Dormant Watch</p>
+          <p><strong>Region:</strong> Eastern Transit Route</p>
+          <p class="muted">Monitor identity shifts, financial shadows, and sleeper links associated with legacy nodes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="identities" class="tab-section hidden">
+      <div class="panel" style="margin-bottom:14px;">
+        <div class="section-title">Government-Issued Cover Identities</div>
+        <p class="muted">One cover remains active at a time. Associated bank trail, communication history, and movement logs stay compartmentalized.</p>
+      </div>
+      <div class="grid-2">
+        <div class="identity-card"><div class="code">ID-01</div><h3>Aman Verma</h3><p>Sales Executive - Delhi</p></div>
+        <div class="identity-card"><div class="code">ID-02</div><h3>Rohit Sharma</h3><p>Civil Engineer - Jaipur</p></div>
+        <div class="identity-card"><div class="code">ID-03</div><h3>Imran Qureshi</h3><p>Driver - Lucknow</p></div>
+        <div class="identity-card"><div class="code">ID-04</div><h3>Karan Malhotra</h3><p>IT Technician - Noida</p></div>
+        <div class="identity-card"><div class="code">ID-05</div><h3>Deepak Singh</h3><p>Delivery Agent - Kanpur</p></div>
+        <div class="identity-card"><div class="code">ID-06</div><h3>Arjun Patel</h3><p>Freelancer - Ahmedabad</p></div>
+        <div class="identity-card"><div class="code">ID-07</div><h3>Sameer Khan</h3><p>Shop Owner - Bhopal</p></div>
+        <div class="identity-card"><div class="code">ID-08</div><h3>Vikas Yadav</h3><p>Electrician - Varanasi</p></div>
+        <div class="identity-card"><div class="code">ID-09</div><h3>Manish Tiwari</h3><p>Teacher - Prayagraj</p></div>
+        <div class="identity-card"><div class="code">ID-10</div><h3>Rakesh Chauhan</h3><p>Security Guard - Chandigarh</p></div>
+      </div>
+    </div>
+
+    <div id="threats" class="tab-section hidden">
+      <div class="grid-3">
+        <div class="profile-box">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="photo-placeholder">PROFILE PHOTO</div>
+            <div>
+              <div class="code">RAVEN</div>
+              <h3>Threat Node Alpha</h3>
+              <p><strong>Threat Level:</strong> <span class="threat-high">HIGH</span></p>
+              <p><strong>Region:</strong> Border Sector</p>
+              <p><strong>Status:</strong> Active</p>
+            </div>
+          </div>
+        </div>
+        <div class="profile-box">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="photo-placeholder">PROFILE PHOTO</div>
+            <div>
+              <div class="code">FALCON</div>
+              <h3>Threat Node Beta</h3>
+              <p><strong>Threat Level:</strong> <span class="threat-critical">CRITICAL</span></p>
+              <p><strong>Region:</strong> Northern Grid</p>
+              <p><strong>Status:</strong> Active</p>
+            </div>
+          </div>
+        </div>
+        <div class="profile-box">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="photo-placeholder">PROFILE PHOTO</div>
+            <div>
+              <div class="code">GHOST</div>
+              <h3>Unattributed Asset</h3>
+              <p><strong>Threat Level:</strong> <span class="threat-unknown">UNKNOWN</span></p>
+              <p><strong>Region:</strong> Classified</p>
+              <p><strong>Status:</strong> Dormant</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="deniedScreen" class="screen center hidden">
+    <div class="terminal-box denied-box">
+      <div class="denied-title mono">ACCESS DENIED</div>
+      <p class="trace">Unauthorized attempt detected while opening restricted family records.</p>
+      <p class="device-line">DEVICE FLAGGED: ACCESS DENIED</p>
+      <p class="device-line">SESSION TERMINATED</p>
+      <button class="btn-danger" style="margin-top:18px;" onclick="resetPortal()">Return to Login</button>
+    </div>
+  </section>
+
+  <script>
+    function loginPortal() {
+      const id = document.getElementById('agentId').value.trim();
+      const pass = document.getElementById('agentPassword').value.trim();
+      const error = document.getElementById('loginError');
+      if (id === 'ISB-9X-117' && pass === 'SD-X9#A117') {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('deniedScreen').classList.add('hidden');
+        document.getElementById('portalScreen').classList.remove('hidden');
+        error.textContent = '';
+      } else {
+        error.textContent = 'Invalid credentials. Access remains blocked.';
+      }
+    }
+
+    function logoutPortal() {
+      document.getElementById('portalScreen').classList.add('hidden');
+      document.getElementById('deniedScreen').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+    }
+
+    function showTab(tabId, buttonEl) {
+      document.querySelectorAll('.tab-section').forEach(section => section.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      buttonEl.classList.add('active');
+    }
+
+    function triggerDenied() {
+      document.getElementById('portalScreen').classList.add('hidden');
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('deniedScreen').classList.remove('hidden');
+    }
+
+    function resetPortal() {
+      document.getElementById('agentPassword').value = '';
+      document.getElementById('portalScreen').classList.add('hidden');
+      document.getElementById('deniedScreen').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
