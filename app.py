@@ -3,7 +3,7 @@ GitHub → app.py → Edit (pencil icon)
 **generate_demo_leads function replace karo:**
 ```python
 def generate_real_leads(query, count=50):
-    api_key = "YOUR_SERPAPI_KEY_HERE"  # Paste your key
+    api_key = "c1209e2a985b33ce8566201a420b84cb2ab81356a0c5e9e32c7417ba110ad7cb"  # Paste your key
     
     url = f"https://serpapi.com/search.json"
     params = {
